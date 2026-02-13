@@ -10,6 +10,9 @@ class Book:
 	def __init__(self, title):
 		self.title = title
 
+	def contracts(self):
+		return [contracts.contract for contracts in Contract.all if contracts.book == self]
+
 class Contract:
 	all = []
 
@@ -58,3 +61,7 @@ class Contract:
 		if not isinstance(value, int):
 			raise Exception
 		self._royalties = value
+
+	def contracts_by_date(self):
+		pass
+		#this method should return all contracts that have the same date as the date passed into the method
