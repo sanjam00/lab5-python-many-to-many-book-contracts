@@ -20,11 +20,13 @@ class Author:
 		# contract.book accesses that object's attribute
 		return [contract.book for contract in self.contracts()]
 
-	def sign_contracts(self, book, date, royalties):
-		pass
+	def sign_contract(self, book, date, royalties):
+		return Contract(self, book, date, royalties)
 
 	def total_royalties(self):
-		pass
+		# loop through to find all Contract.royalties, add the sum of all?
+		royals = [contract.royalties for contract in self.contracts()]
+		return sum(royals)
 
 class Book:
 	all = []
@@ -90,6 +92,7 @@ class Contract:
 			raise Exception
 		self._royalties = value
 
-	def contracts_by_date(self):
+	@classmethod
+	def contracts_by_date(cls):
 		pass
-		#this method should return all contracts that have the same date as the date passed into the method
+		# This method should return all contracts that have the same date as the date passed into the method
