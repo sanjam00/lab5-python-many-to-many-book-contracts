@@ -93,6 +93,6 @@ class Contract:
 		self._royalties = value
 
 	@classmethod
-	def contracts_by_date(cls):
-		pass
+	def contracts_by_date(cls, date):
 		# This method should return all contracts that have the same date as the date passed into the method
+		return [contract for contract in cls.all if contract.date == date]
