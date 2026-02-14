@@ -4,6 +4,28 @@ class Author:
 	def __init__(self, name):
 		self.name = name
 
+	def contracts(self):
+		# returns a list of its contracts
+		# structure: [EXPRESSION for ITEM in COLLECTION if CONDITION]
+		# plain english: “Give me every contract in Contract.all where the contract’s author is me.”
+		# we are looping through instaces of Contract, not the class itself. 
+		# And it's singular because 'contract' represents one item at a time (technically just a variable name; could be 'contracts' but that's confusing bc it sounds like a list)
+		return [contract for contract in Contract.all if contract.author == self]
+	
+	def books(self):
+		# returns a list of related books
+		# structure: [EXPRESSION for ITEM in COLLECTION]
+		# plain english: “For each of my contracts, give me the book attached to it.”
+		# we loop through contracts() because that's already filtered!
+		# contract.book accesses that object's attribute
+		return [contract.book for contract in self.contracts()]
+
+	def sign_contracts(self, book, date, royalties):
+		pass
+
+	def total_royalties(self):
+		pass
+
 class Book:
 	all = []
 
@@ -11,7 +33,12 @@ class Book:
 		self.title = title
 
 	def contracts(self):
-		return [contracts.contract for contracts in Contract.all if contracts.book == self]
+		#returns a list of its contracts
+		return [contract for contract in Contract.all if contract.book == self]
+	
+	def authors(self):
+		#returns a list of related authors
+		return [contract.author for contract in self.contracts()]
 
 class Contract:
 	all = []
@@ -21,6 +48,7 @@ class Contract:
 		self.book = book
 		self.date = date
 		self.royalties = royalties
+		Contract.all.append(self)
 
 	@property
 	def author(self):
